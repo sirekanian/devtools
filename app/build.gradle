@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+
+android {
+    compileSdkVersion 29
+    defaultConfig {
+        applicationId "com.sirekanyan.devtools"
+        minSdkVersion 17
+        targetSdkVersion 29
+        buildToolsVersion "29.0.3"
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+        }
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt')
+        }
+    }
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+}
+
+dependencies {
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+}
+
+afterEvaluate {
+    def grantSystemPermissions = {
+        exec {
+            def defaultPackage = android.defaultConfig.applicationId
+            def debugSuffix = android.buildTypes['debug'].applicationIdSuffix
+            commandLine('./grant.sh', defaultPackage + debugSuffix)
+        }
+    }
+    assembleDebug.doLast { grantSystemPermissions() }
+    installDebug.doLast { grantSystemPermissions() }
+}
