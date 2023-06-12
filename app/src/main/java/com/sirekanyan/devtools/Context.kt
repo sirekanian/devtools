@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.Intent
 import android.util.Log
 import android.view.Gravity
+import android.view.View
+import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
@@ -13,18 +15,31 @@ import androidx.core.view.setPadding
 fun Context.scroll(configure: ScrollView.() -> Unit) =
     ScrollView(this).also(configure)
 
-fun Context.linear(configure: LinearLayout.() -> Unit) =
+fun ViewGroup.addLinear(configure: LinearLayout.() -> Unit) =
+    addView(context.linear(configure))
+
+private fun Context.linear(configure: LinearLayout.() -> Unit) =
     LinearLayout(this).also {
         it.gravity = Gravity.CENTER
         it.configure()
     }
 
-fun Context.text(value: String, onClick: () -> Unit = {}) =
+fun ViewGroup.addText(value: String, onClick: () -> Unit = {}) =
+    addView(context.text(value, onClick))
+
+private fun Context.text(value: String, onClick: () -> Unit = {}) =
     TextView(this).also {
         it.text = value
         it.setPadding(48)
         it.setOnClickListener { onClick() }
     }
+
+fun View.onLongClick(listener: (View) -> Unit) {
+    setOnLongClickListener { view ->
+        listener(view)
+        true
+    }
+}
 
 fun Context.startIntent(action: String) {
     try {

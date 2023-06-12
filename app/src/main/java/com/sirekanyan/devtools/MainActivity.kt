@@ -1,6 +1,7 @@
 package com.sirekanyan.devtools
 
 import android.os.Bundle
+import android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import kotlin.reflect.KMutableProperty0
@@ -13,23 +14,26 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(
             scroll {
-                addView(linear {
+                addLinear {
                     orientation = LinearLayout.VERTICAL
-                    addView(linear {
-                        addView(text("dev") {
+                    addLinear {
+                        addText("dev") {
                             init(adb = 1, font = 1.15f, screen = 120)
                             recreate()
-                        })
-                        addView(text("reset") {
+                        }
+                        addText("reset") {
                             init(adb = 0, font = 1.0f, screen = 30)
                             finish()
-                        })
-                    })
-                    switcher(settings::adb, 0, 1)
-                    switcher(settings::dka, 0, 1)
-                    switcher(settings::font, 0.85f, 1.0f, 1.15f, 1.3f)
-                    switcher(settings::screen, 30, 60, 120)
-                })
+                        }
+                        onLongClick {
+                            startIntent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
+                        }
+                    }
+                    addSwitcher(settings::adb, 0, 1)
+                    addSwitcher(settings::dka, 0, 1)
+                    addSwitcher(settings::font, 0.85f, 1.0f, 1.15f, 1.3f)
+                    addSwitcher(settings::screen, 30, 60, 120)
+                }
             }
         )
     }
@@ -41,18 +45,18 @@ class MainActivity : AppCompatActivity() {
         settings.screen = screen
     }
 
-    private fun <T> LinearLayout.switcher(property: KMutableProperty0<T>, vararg values: T) {
+    private fun <T> LinearLayout.addSwitcher(property: KMutableProperty0<T>, vararg values: T) {
         val currentValue = property.get()
-        addView(linear {
+        addLinear {
             orientation = LinearLayout.HORIZONTAL
             values.forEach { value ->
                 val text = "${property.name} $value"
-                addView(text(if (value == currentValue) "[$text]" else text) {
+                addText(if (value == currentValue) "[$text]" else text) {
                     property.set(value)
                     recreate()
-                })
+                }
             }
-        })
+        }
     }
 
 }
