@@ -1,12 +1,18 @@
 #!/usr/bin/env bash
 
-PACKAGE_NAME="$1"
+if [ "$#" -ne 2 ] || [ ! -x "$1" ]; then
+  echo "Usage: $0 ADB_EXECUTABLE PACKAGE_NAME"
+  exit 1
+fi
+
+ADB_EXECUTABLE="$1"
+PACKAGE_NAME="$2"
 
 grant() {
-  adb -s "$device" shell pm grant "$PACKAGE_NAME" "android.permission.$1" >/dev/null 2>&1
+  "$ADB_EXECUTABLE" -s "$device" shell pm grant "$PACKAGE_NAME" "android.permission.$1" >/dev/null 2>&1
 }
 
-DEVICES=$(adb devices | grep device | grep -v devices | cut -f1)
+DEVICES=$("$ADB_EXECUTABLE" devices | grep device | grep -v devices | cut -f1)
 
 for device in ${DEVICES}; do
   grant WRITE_SECURE_SETTINGS

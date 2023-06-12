@@ -38,9 +38,10 @@ dependencies {
 afterEvaluate {
     def grantSystemPermissions = {
         exec {
+            def adbExecutable = android.properties['adbExecutable']
             def defaultPackage = android.defaultConfig.applicationId
             def debugSuffix = android.buildTypes['debug'].applicationIdSuffix
-            commandLine('./grant.sh', defaultPackage + debugSuffix)
+            commandLine('./grant.sh', adbExecutable, defaultPackage + debugSuffix)
         }
     }
     assembleDebug.doLast { grantSystemPermissions() }
