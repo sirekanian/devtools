@@ -1,9 +1,9 @@
-package com.sirekanyan.devtools
+package org.sirekanyan.devtools
 
 import android.provider.Settings.Global
 import android.provider.Settings.System
 import android.util.Log
-import com.sirekanyan.devtools.exceptions.UnknownPropertyTypeError
+import org.sirekanyan.devtools.exceptions.UnknownPropertyTypeError
 import kotlin.reflect.KProperty
 
 class GlobalSetting<T>(private val key: String) {

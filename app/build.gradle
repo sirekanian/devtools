@@ -3,10 +3,10 @@ apply plugin: 'kotlin-android'
 apply plugin: 'org.sirekanyan.version-checker'
 
 android {
-    namespace 'com.sirekanyan.devtools'
+    namespace 'org.sirekanyan.devtools'
     compileSdkVersion 33
     defaultConfig {
-        applicationId "com.sirekanyan.devtools"
+        applicationId "org.sirekanyan.devtools"
         minSdkVersion 17
         targetSdkVersion 33
         versionCode 1

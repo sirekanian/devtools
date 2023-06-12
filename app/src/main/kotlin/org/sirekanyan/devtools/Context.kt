@@ -1,4 +1,4 @@
-package com.sirekanyan.devtools
+package org.sirekanyan.devtools
 
 import android.content.Context
 import android.content.Intent

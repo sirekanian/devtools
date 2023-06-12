@@ -1,4 +1,4 @@
-package com.sirekanyan.devtools
+package org.sirekanyan.devtools
 
 import android.os.Bundle
 import android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS

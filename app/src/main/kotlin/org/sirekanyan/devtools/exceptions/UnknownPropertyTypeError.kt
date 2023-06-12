@@ -1,4 +1,4 @@
-package com.sirekanyan.devtools.exceptions
+package org.sirekanyan.devtools.exceptions
 
 import kotlin.reflect.KProperty
 
