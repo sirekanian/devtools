@@ -17,6 +17,7 @@ DEVICES=$("$ADB_EXECUTABLE" devices | grep device | grep -v devices | cut -f1)
 for device in ${DEVICES}; do
   grant WRITE_SECURE_SETTINGS
   grant SET_ALWAYS_FINISH
+  grant POST_NOTIFICATIONS
 done
 
 exit 0

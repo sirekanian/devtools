@@ -9,6 +9,7 @@ import kotlin.reflect.KMutableProperty0
 class MainActivity : AppCompatActivity() {
 
     private val settings by lazy { Settings(contentResolver) }
+    private val notifications by lazy { app.notifications }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -18,11 +19,13 @@ class MainActivity : AppCompatActivity() {
                     orientation = LinearLayout.VERTICAL
                     addLinear {
                         addText("dev") {
-                            init(adb = 1, font = 1.15f, screen = 120)
+                            notifications.show()
+                            settings.init(adb = 1, font = 1.15f, screen = 120)
                             recreate()
                         }
                         addText("reset") {
-                            init(adb = 0, font = 1.0f, screen = 30)
+                            notifications.hide()
+                            settings.init()
                             finish()
                         }
                         onLongClick {
@@ -36,13 +39,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-    }
-
-    private fun init(adb: Int, font: Float, screen: Long) {
-        settings.adb = adb
-        settings.dka = 0
-        settings.font = font
-        settings.screen = screen
+        if (savedInstanceState == null) {
+            notifications.show()
+        }
     }
 
     private fun <T> LinearLayout.addSwitcher(property: KMutableProperty0<T>, vararg values: T) {
@@ -52,6 +51,7 @@ class MainActivity : AppCompatActivity() {
             values.forEach { value ->
                 val text = "${property.name} $value"
                 addText(if (value == currentValue) "[$text]" else text) {
+                    notifications.show()
                     property.set(value)
                     recreate()
                 }

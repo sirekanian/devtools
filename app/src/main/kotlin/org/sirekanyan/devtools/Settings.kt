@@ -12,4 +12,11 @@ class Settings(val resolver: ContentResolver) {
     var screen: Long by SystemSetting(System.SCREEN_OFF_TIMEOUT, multiplier = 1000)
     var rotation: Int by SystemSetting(System.USER_ROTATION)
 
+    fun init(adb: Int = 0, font: Float = 1.0f, screen: Long = 30) {
+        this.adb = adb
+        this.dka = 0
+        this.font = font
+        this.screen = screen
+    }
+
 }
