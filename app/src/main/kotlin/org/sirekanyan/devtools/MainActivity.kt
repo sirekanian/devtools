@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
                     addLinear {
                         addText("dev") {
                             notifications.show()
-                            settings.init(adb = 1, font = 1.15f, screen = 120, stayAwake = 7)
+                            settings.init(dev = 1, adb = 1, font = 1.15f, screen = 120, awake = 7)
                             recreate()
                         }
                         addText("reset") {
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
                             startIntent(ACTION_APPLICATION_DEVELOPMENT_SETTINGS)
                         }
                     }
+                    addSwitcher(settings::dev, 0, 1)
                     addSwitcher(settings::adb, 0, 1)
                     addSwitcher(settings::dka, 0, 1)
                     addSwitcher(settings::font, 0.85f, 1.0f, 1.15f, 1.3f)

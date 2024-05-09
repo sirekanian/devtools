@@ -6,6 +6,7 @@ import android.provider.Settings.System
 
 class Settings(val resolver: ContentResolver) {
 
+    var dev: Int by GlobalSetting(Global.DEVELOPMENT_SETTINGS_ENABLED)
     var adb: Int by GlobalSetting(Global.ADB_ENABLED)
     var dka: Int by GlobalSetting(Global.ALWAYS_FINISH_ACTIVITIES)
     var font: Float by SystemSetting(System.FONT_SCALE)
@@ -16,7 +17,8 @@ class Settings(val resolver: ContentResolver) {
     var animatorDuration: Float by GlobalSetting(Global.ANIMATOR_DURATION_SCALE)
     var stayAwake: Int by GlobalSetting(Global.STAY_ON_WHILE_PLUGGED_IN)
 
-    fun init(adb: Int = 0, font: Float = 1.0f, screen: Long = 30, awake: Int = 0) {
+    fun init(dev: Int = 0, adb: Int = 0, font: Float = 1.0f, screen: Long = 30, awake: Int = 0) {
+        this.dev = dev
         this.adb = adb
         this.dka = 0
         this.font = font
