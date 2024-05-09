@@ -32,6 +32,12 @@ private fun Context.text(value: String, onClick: () -> Unit = {}) =
         it.text = value
         it.setPadding(48)
         it.setOnClickListener { onClick() }
+        it.gravity = Gravity.CENTER
+        it.layoutParams = LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT,
+            1f,
+        )
     }
 
 fun View.onLongClick(listener: (View) -> Unit) {
