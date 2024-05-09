@@ -14,8 +14,9 @@ class Settings(val resolver: ContentResolver) {
     var windowAnimation: Float by GlobalSetting(Global.WINDOW_ANIMATION_SCALE)
     var transitionAnimation: Float by GlobalSetting(Global.TRANSITION_ANIMATION_SCALE)
     var animatorDuration: Float by GlobalSetting(Global.ANIMATOR_DURATION_SCALE)
+    var stayAwake: Int by GlobalSetting(Global.STAY_ON_WHILE_PLUGGED_IN)
 
-    fun init(adb: Int = 0, font: Float = 1.0f, screen: Long = 30) {
+    fun init(adb: Int = 0, font: Float = 1.0f, screen: Long = 30, awake: Int = 0) {
         this.adb = adb
         this.dka = 0
         this.font = font
@@ -23,5 +24,6 @@ class Settings(val resolver: ContentResolver) {
         this.windowAnimation = 1f
         this.transitionAnimation = 1f
         this.animatorDuration = 1f
+        this.stayAwake = awake
     }
 }

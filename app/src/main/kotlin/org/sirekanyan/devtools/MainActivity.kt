@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity() {
                     addLinear {
                         addText("dev") {
                             notifications.show()
-                            settings.init(adb = 1, font = 1.15f, screen = 120)
+                            settings.init(adb = 1, font = 1.15f, screen = 120, stayAwake = 7)
                             recreate()
                         }
                         addText("reset") {
@@ -39,6 +39,7 @@ class MainActivity : AppCompatActivity() {
                     addSwitcher(settings::windowAnimation, 1f, 2f, 5f)
                     addSwitcher(settings::transitionAnimation, 1f, 2f, 5f)
                     addSwitcher(settings::animatorDuration, 1f, 2f, 5f)
+                    addSwitcher(settings::stayAwake, 0, 7)
                 }
             }
         )
