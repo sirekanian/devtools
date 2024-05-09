@@ -36,6 +36,9 @@ class MainActivity : AppCompatActivity() {
                     addSwitcher(settings::dka, 0, 1)
                     addSwitcher(settings::font, 0.85f, 1.0f, 1.15f, 1.3f)
                     addSwitcher(settings::screen, 30, 60, 120)
+                    addSwitcher(settings::windowAnimation, 1f, 2f, 5f)
+                    addSwitcher(settings::transitionAnimation, 1f, 2f, 5f)
+                    addSwitcher(settings::animatorDuration, 1f, 2f, 5f)
                 }
             }
         )
@@ -58,5 +61,4 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
 }

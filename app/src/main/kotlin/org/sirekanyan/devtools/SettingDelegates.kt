@@ -12,6 +12,7 @@ class GlobalSetting<T>(private val key: String) {
     operator fun getValue(thisRef: Settings, property: KProperty<*>): T =
         when (property.returnType.classifier) {
             Int::class -> Global.getInt(thisRef.resolver, key)
+            Float::class -> Global.getFloat(thisRef.resolver, key)
             else -> throw UnknownPropertyTypeError(property)
         } as T
 
@@ -19,13 +20,13 @@ class GlobalSetting<T>(private val key: String) {
         try {
             when (property.returnType.classifier) {
                 Int::class -> Global.putInt(thisRef.resolver, key, value as Int)
+                Float::class -> Global.putFloat(thisRef.resolver, key, value as Float)
                 else -> throw UnknownPropertyTypeError(property)
             }
         } catch (ex: IllegalArgumentException) {
             Log.e("devtools", "Can't set global value", ex)
             false
         }
-
 }
 
 class SystemSetting<T>(private val key: String, private val multiplier: Long = 1) {
@@ -51,5 +52,4 @@ class SystemSetting<T>(private val key: String, private val multiplier: Long = 1
             Log.e("devtools", "Can't set system value", ex)
             false
         }
-
 }
