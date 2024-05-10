@@ -9,6 +9,8 @@ import org.sirekanyan.devtools.Profile.Companion.DefaultProfile
 import org.sirekanyan.devtools.Profile.Companion.DevelopProfile
 import kotlin.reflect.KMutableProperty0
 
+private val UppercaseLetterRegex = Regex("[A-Z]")
+
 class MainActivity : AppCompatActivity() {
 
     private val settings by lazy { Settings(contentResolver) }
@@ -58,8 +60,8 @@ class MainActivity : AppCompatActivity() {
         addLinear {
             orientation = LinearLayout.HORIZONTAL
             values.forEach { value ->
-                val text = "${property.name} $value"
-                addText(text, if (value == currentValue) Color.WHITE else Color.BLACK) {
+                val key = UppercaseLetterRegex.replace(property.name) { " ${it.value.lowercase()}" }
+                addText("$key $value", if (value == currentValue) Color.WHITE else Color.BLACK) {
                     notifications.show()
                     property.set(value)
                     recreate()
