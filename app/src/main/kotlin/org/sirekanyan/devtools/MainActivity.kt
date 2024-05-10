@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import org.sirekanyan.devtools.Profile.Companion.DefaultProfile
+import org.sirekanyan.devtools.Profile.Companion.DevelopProfile
 import kotlin.reflect.KMutableProperty0
 
 class MainActivity : AppCompatActivity() {
@@ -14,19 +16,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val profile = settings.getProfile()
         setContentView(
             scroll {
                 addLinear {
                     orientation = LinearLayout.VERTICAL
                     addLinear {
-                        addText("dev") {
+                        addText("develop", if (profile.isDevelop()) Color.WHITE else Color.BLACK) {
                             notifications.show()
-                            settings.init(dev = 1, adb = 1, font = 1.15f, screen = 120, awake = 7)
+                            settings.setProfile(DevelopProfile)
                             recreate()
                         }
-                        addText("reset") {
+                        addText("default", if (profile.isDefault()) Color.WHITE else Color.BLACK) {
                             notifications.hide()
-                            settings.init()
+                            settings.setProfile(DefaultProfile)
                             finish()
                         }
                         onLongClick {
