@@ -1,5 +1,6 @@
 package org.sirekanyan.devtools
 
+import android.graphics.Color
 import android.os.Bundle
 import android.provider.Settings.ACTION_APPLICATION_DEVELOPMENT_SETTINGS
 import android.widget.LinearLayout
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
             orientation = LinearLayout.HORIZONTAL
             values.forEach { value ->
                 val text = "${property.name} $value"
-                addText(if (value == currentValue) "[$text]" else text) {
+                addText(text, if (value == currentValue) Color.WHITE else Color.BLACK) {
                     notifications.show()
                     property.set(value)
                     recreate()

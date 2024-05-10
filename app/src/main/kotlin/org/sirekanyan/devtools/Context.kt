@@ -24,12 +24,13 @@ private fun Context.linear(configure: LinearLayout.() -> Unit) =
         it.configure()
     }
 
-fun ViewGroup.addText(value: String, onClick: () -> Unit = {}) =
-    addView(context.text(value, onClick))
+fun ViewGroup.addText(value: String, color: Int, onClick: () -> Unit = {}) =
+    addView(context.text(value, color, onClick))
 
-private fun Context.text(value: String, onClick: () -> Unit = {}) =
+private fun Context.text(value: String, color: Int, onClick: () -> Unit = {}) =
     TextView(this).also {
         it.text = value
+        it.setTextColor(color)
         it.setPadding(48)
         it.setOnClickListener { onClick() }
         it.gravity = Gravity.CENTER
